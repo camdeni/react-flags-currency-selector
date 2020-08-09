@@ -1,0 +1,21 @@
+export default ({
+    "BR": "Brazil",
+    "BG": "Bulgaria lev",
+    "CA": "Canadian Dollars",
+    "CN": "Chinese yuan",
+    "IL": "Israel shekel",
+    "JP": "Japanese Yen",
+    "KR": "South Korean Won",
+    "MX": "Mexican Peso",
+    "NZ": "New Zealand Dollars",
+    "PH": "Philippines PH",
+    "PL": "Poland zloty",
+    "RU": "Russian RUB",
+    "SG": "Singapore Dollars",
+    "ZA": "South Africa Rand",
+    "CH": "Swiss fanc",
+    "TR": "Turkey Lira",
+    "GB": "UK Pounds",
+    "US": "US Dollars",
+    "EU":"European Euros"
+});

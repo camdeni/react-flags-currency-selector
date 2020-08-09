@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import countries from './countries';
+import currencies from './currencies';
 
 class ReactFlagsSelect extends Component {
 	constructor(props){
 		super(props);
 
-		const defaultCountry = countries[this.props.defaultCountry] && this.props.defaultCountry;
+		const defaultCountry = currencies[this.props.defaultCountry] && this.props.defaultCountry;
 
 		this.state = {
 			openOptions: false,
 			defaultCountry,
-			filteredCountries: []
+			filteredcurrencies: []
 		}
 
 		this.toggleOptions = this.toggleOptions.bind(this);
 		this.closeOptions = this.closeOptions.bind(this);
 		this.onSelect = this.onSelect.bind(this);
 		this.filterSearch = this.filterSearch.bind(this);
-		this.setCountries = this.setCountries.bind(this);
+		this.setcurrencies = this.setcurrencies.bind(this);
 	}
 
 	toggleOptions() {
@@ -66,7 +66,7 @@ class ReactFlagsSelect extends Component {
 	}
 
 	updateSelected(countryCode) {
-		let isValid = countries[countryCode];
+		let isValid = currencies[countryCode];
 
 		isValid && this.setState({
 			selected: countryCode
@@ -75,49 +75,49 @@ class ReactFlagsSelect extends Component {
 
 	filterSearch(evt) {
 		let filterValue = evt.target.value;
-		let filteredCountries = filterValue && this.state.countries.filter(key => {
-			let label = this.props.customLabels[key] || countries[key];
+		let filteredcurrencies = filterValue && this.state.currencies.filter(key => {
+			let label = this.props.customLabels[key] || currencies[key];
 			return  label && label.match(new RegExp(filterValue, 'i'))
 		}) ;
 
-		this.setState({filter : filterValue, filteredCountries : filteredCountries });
+		this.setState({filter : filterValue, filteredcurrencies : filteredcurrencies });
 	}
 
-	setCountries() {
-		const fullCountries = Object.keys(countries);
+	setcurrencies() {
+		const fullcurrencies = Object.keys(currencies);
 
-		let selectCountries = this.props.countries && this.props.countries.filter( country => {
-			return countries[country] ;
+		let selectcurrencies = this.props.currencies && this.props.currencies.filter( country => {
+			return currencies[country] ;
 		});
 
 		//Filter BlackList
-		if (this.props.blackList && selectCountries) {
-			selectCountries = fullCountries.filter(countryKey =>{
-					return selectCountries.filter(country =>{
+		if (this.props.blackList && selectcurrencies) {
+			selectcurrencies = fullcurrencies.filter(countryKey =>{
+					return selectcurrencies.filter(country =>{
 						return countryKey === country;
 					}).length === 0
 			});
 		}
 
 		this.setState({
-			countries: selectCountries || fullCountries
+			currencies: selectcurrencies || fullcurrencies
 		}, ()=> {
 			const { selected } = this.state;
 
-			if (selected && !this.state.countries.includes(selected)) {
+			if (selected && !this.state.currencies.includes(selected)) {
 				this.setState({ selected: null });
 			}
 		});
 	}
 
 	componentDidMount() {
-		this.setCountries();
+		this.setcurrencies();
 		!this.props.disabled && window.addEventListener("click", this.closeOptions);
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.countries !== this.props.countries || prevProps.blackList !== this.props.blackList) {
-			this.setCountries();
+		if (prevProps.currencies !== this.props.currencies || prevProps.blackList !== this.props.blackList) {
+			this.setcurrencies();
 		}
 	}
 
@@ -150,7 +150,7 @@ class ReactFlagsSelect extends Component {
 						<span className="flag-select__option flag-select__option--placeholder">
 							<img className="flag-select__option__icon" src={require(`../flags/${isSelected.toLowerCase()}.svg`)} alt={isSelected}/>
 							{this.props.showSelectedLabel &&
-								<span className="flag-select__option__label">{ this.props.customLabels[isSelected] || countries[isSelected] }</span>
+								<span className="flag-select__option__label">{ this.props.customLabels[isSelected] || currencies[isSelected] }</span>
 							}
 						</span>
 					}
@@ -167,7 +167,7 @@ class ReactFlagsSelect extends Component {
 							</div>
 						)}
 
-						{(this.state.filter ? this.state.filteredCountries : this.state.countries).map(countryCode =>
+						{(this.state.filter ? this.state.filteredcurrencies : this.state.currencies).map(countryCode =>
 							(<li
 								key={countryCode}
 								role="option"
@@ -179,11 +179,11 @@ class ReactFlagsSelect extends Component {
 								<span style={{width: `${optionsSize}px`, height: `${optionsSize}px`}}>
 									<img
 										className="flag-select__option__icon"
-										alt={`flag for ${countries[countryCode]}`}
+										alt={`flag for ${currencies[countryCode]}`}
 										src={require(`../flags/${countryCode.toLowerCase()}.svg`)} />
 									{this.props.showOptionLabel && (
 										<span className="flag-select__option__label">
-										{ this.props.customLabels[countryCode] || countries[countryCode] }
+										{ this.props.customLabels[countryCode] || currencies[countryCode] }
 									</span>
 									)}
 								</span>
@@ -212,7 +212,7 @@ ReactFlagsSelect.defaultProps = {
 };
 
 ReactFlagsSelect.propTypes = {
-	countries: PropTypes.array,
+	currencies: PropTypes.array,
 	blackList: PropTypes.bool,
 	customLabels: PropTypes.object,
 	selectedSize: PropTypes.number,
